@@ -2,7 +2,7 @@
 
 <ul class="heroes">
   <li *ngFor="let hero of heroes">
-    <a routerLink="/detail/{{hero.id}}">
+    <a routerLink="../detail/{{hero.id}}">
       <span class="badge">{{hero.id}}</span> 
       <span> {{hero.name}} </span>
       <app-hero-type [typeId]="hero.typeId"> </app-hero-type> 
@@ -12,13 +12,33 @@
   </li>
 </ul>
 
-<div>
-  <label for="new-hero">Hero name: </label>
-  <input id="new-hero" #heroName />
 
-   <button type="button" class="add-button" (click)="add(heroName.value); heroName.value=''">
-    Add hero
-  </button>
+
+<div> 
+  <button type="button" class="add-button"
+  (click)="showDialog()" icon="pi pi-info-circle" > Add Hero</button>
 </div>
 
 
+  <p-dialog   header="Add Hero" [(visible)]="display"  [modal]="true" 
+  [style]="{width: '50vw'}" [baseZIndex]="10000"> 
+   
+    <div>
+      <form #createHeroForm="ngForm" (ngSubmit)="onSubmitHero()"  id="heroesCreateFomr" name="heroesCreateForm">
+        <label for="new-hero">Hero name: </label>
+        <input id="new-hero"  name= "new-hero" required [(ngModel)]="newHero.name "/>
+    
+        <button type="submit" class="add-button" [disabled]="createHeroForm.invalid"> Save </button>
+        <button type="button" class="add-button" (click)="cancelSubmit()"> Cancel </button>
+        
+      </form>
+    </div>
+
+   </p-dialog>
+
+
+
+
+
+<!-- <button type="button" class="add-button" 
+(click)="onClickAddHero  ()" > Add hero</button>  [style]="{width: '50vw'}" [baseZIndex]="10000" -->

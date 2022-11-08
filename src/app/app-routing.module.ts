@@ -7,11 +7,11 @@ import { HeroDetailComponent } from './heroes/components/hero-detail/hero-detail
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'detail/:id', component: HeroDetailComponent },
-  { path: 'heroes', component: HeroesComponent },
   
+  { path: 'tasks', loadChildren: () => import('./tasks/tasks.module').then(m => m.TasksModule)},
+  { path: 'heroes', loadChildren: () => import('./heroes/heroes.module').then(m => m.HeroesModule)},
   
-  
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({
